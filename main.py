@@ -21,6 +21,7 @@ def degree_of_profanity(file_path, word_list):
     return [overall, overall_line]
 
 
-no_of_words, no_of_line = degree_of_profanity("document.txt", words)
+# input document.txt
+no_of_words, no_of_line = degree_of_profanity(input(), words)
 print("Total no of profanity words in this file is", no_of_words, "and Totally", no_of_line, "no of line contains "
                                                                                              "profanity words")
