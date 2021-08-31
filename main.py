@@ -1,25 +1,24 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-from alt_profanity_check import predict, predict_prob
-
-def run_main():
-    with open("document.txt", "r") as a_file:
-        for line in a_file:
-            stripped_line = line.strip()
-            if 0 < predict_prob([stripped_line])[0] < 0.25:
-                print('Low')
-            elif 0.25 < predict_prob([stripped_line])[0] < 0.5:
-                print('medium')
-            elif 0.5 < predict_prob([stripped_line])[0] < 0.75:
-                print('high')
-            else:
-                print('very high')
+words = ['Lorem', 'shit']  # these are predefined profanity words
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    run_main()
+def degree_of_profanity(file_path, word_list):
+    overall= overall_line= 0
+    with open(file_path, 'r') as f:
+        for num, line in enumerate(f, start=1):
+            for word in word_list:
+                if word in line:
+                    overall += line.strip().split().count(word)
+                    overall_line+=1
+                    if 0 <= line.strip().split().count(word) < 2:
+                        print("line no", num, "low")
+                    elif 2 <= line.strip().split().count(word) < 5:
+                        print("line no", num, "medium")
+                    elif 5 <= line.strip().split().count(word) < 7:
+                        print("line no", num, "high")
+                    elif line.strip().split().count(word) > 7:
+                        print("line no", num, "very high")
+    return [overall,overall_line]
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+print("Total no of profanity words in this file is", degree_of_profanity("document.txt", words)[0], "and Totally", degree_of_profanity("document.txt", words)[1], " no of line contains profanity words")
